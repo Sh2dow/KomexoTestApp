@@ -1,0 +1,130 @@
+﻿@model KomexoTestApp.Models.KomexoOrder
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Create</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" />
+    <base href="/" />
+    <script>
+        // Must be first. IE10 mobile viewport fix
+        if ("-ms-user-select" in document.documentElement.style && navigator.userAgent.match(/IEMobile\/10\.0/)) {
+            var msViewportStyle = document.createElement("style");
+            var mq = "@@-ms-viewport{width:auto!important}";
+            msViewportStyle.appendChild(document.createTextNode(mq));
+            document.getElementsByTagName("head")[0].appendChild(msViewportStyle);
+        }
+    </script>
+
+</head>
+<body>
+    
+    @using (Html.BeginForm("GeneratePDF", "Home", FormMethod.Post, new { target = "_blank" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>KomexoOrder</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.OrderNr, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.OrderNr, new { htmlAttributes = new { @class = "form-control", required = "true" } })
+                    @Html.ValidationMessageFor(model => model.OrderNr, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ProjectName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ProjectName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.ProjectName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ServiceDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ServiceDate, new { htmlAttributes = new { @class = "form-control", @type = "date" } })
+                    @Html.ValidationMessageFor(model => model.ServiceDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EngineerName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EngineerName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EngineerName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.ToDo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ToDo, new { htmlAttributes = new { @class = "form-control", rows = "2" } })
+                    @Html.ValidationMessageFor(model => model.ToDo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Cable, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Cable, new { htmlAttributes = new { @class = "form-control", min = "0" } })
+                    @Html.ValidationMessageFor(model => model.Cable, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Plate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Plate, new { htmlAttributes = new { @class = "form-control", min = "0" } })
+                    @Html.ValidationMessageFor(model => model.Plate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Screw, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Screw, new { htmlAttributes = new { @class = "form-control", min = "0" } })
+                    @Html.ValidationMessageFor(model => model.Screw, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Signature, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div id="signature-pad" class="m-signature-pad">
+                        <div class="m-signature-pad--body">
+                            <input type="hidden" name="Signature" id="Signature" />
+                            <canvas id="sigcanvas"></canvas>
+                        </div>
+                        <div class="m-signature-pad--footer">
+                            <button type="button" class="button clear" data-action="clear">Clear</button>
+                            @*<button type="button" class="button save" data-action="save-png">Save</button>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p></p>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <button type="submit" onclick="SaveSig()" class="btn btn-default">Ok and generate</button>
+                </div>
+            </div>
+        </div>
+    }
+
+    @Scripts.Render("~/bundles/signatureapp")
+    <script type="text/javascript">
+        function SaveSig() {
+            $("#Signature").val(document.getElementById("sigcanvas").toDataURL().replace('data:image/png;base64,', ''));
+        };
+    </script>
+
+</body>
+</html>

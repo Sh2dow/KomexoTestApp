@@ -1,0 +1,75 @@
+﻿@model KomexoTestApp.Models.KomexoOrder
+@{
+    ViewBag.Title = "Generated PDF";
+    Layout = "~/Views/Shared/_PdfLayout.cshtml";
+    var imagePath = Server.MapPath("~/Resources");
+}
+
+<div>
+    <h4>KomexoOrder</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <span>Order Nr:</span>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.OrderNr)
+        </dd>
+        <dt>
+            <span>Project name:</span>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+        <dt>
+            <span>Service Date:</span>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ServiceDate)
+        </dd>
+        <dt>
+            <span>Engineer Name:</span>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.EngineerName)
+        </dd>
+        <dt>
+            <span>Work to do:</span>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.ToDo)
+        </dd>
+    </dl>
+</div>
+
+<span>Materials used:</span>
+<table>
+    <thead>
+        <tr>
+            <th>Cable(s)</th>
+            <th>Plate(s)</th>
+            <th>Screw(s)</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Cable</td>
+            <td>@Model.Plate</td>
+            <td>@Model.Screw</td>
+        </tr>
+    </tbody>
+</table>
+
+<p></p>
+<div>
+    <dl>
+        <dt>
+            <span>Signature:</span>
+        </dt>
+        <dd>
+            <br />
+            <img src="@imagePath\Signature.png" alt="Signature" style="overflow: hidden; position: relative; width:280px; height:150px;" />
+        </dd>
+    </dl>
+</div>
+
