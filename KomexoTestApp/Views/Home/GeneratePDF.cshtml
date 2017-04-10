@@ -40,7 +40,6 @@
             @Html.DisplayFor(model => model.ToDo)
         </dd>
     </dl>
-</div>
 
 <span>Materials used:</span>
 <table>
@@ -60,8 +59,17 @@
     </tbody>
 </table>
 
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            <span>Remarks:</span>
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Remarks)
+        </dd>
+    </dl>
+
 <p></p>
-<div>
     <dl>
         <dt>
             <span>Signature:</span>
